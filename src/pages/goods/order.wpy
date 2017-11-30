@@ -1,0 +1,196 @@
+<template>
+  <view class="goods-order-container">
+    <view class="address-wrapper"
+          @tap="toAddrEdit">
+      <view class="address">
+        <label class="text">浙江省舟山市XX小区xx号</label>
+        <view class="can-jump"></view>
+      </view>
+      <view class="others">
+        <label class="name">一横</label>
+        <label class="tel">13512341234</label>
+      </view>
+    </view>
+
+    <view class="content">
+      <view class="section">
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="item" wx:for="{{items}}">
+            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+      <view class="section">
+        <view class="list">
+          <view class="item"
+                wx:for="{{list}}"
+                wx:for-index="index"
+                wx:for-key="index">
+            <view class="left">
+              <view class="title">
+                {{ item.title }}
+              </view>
+              <view class="desc">
+                {{ item.desc }}
+              </view>
+            </view>
+            <view class="num">
+              ×{{ item.num }}
+            </view>
+            <view class="price">
+              ￥{{ item.price }}
+            </view>
+          </view>
+        </view>
+        <view class="total">
+          <label>合计：</label>
+          <label class="total-price">￥{{ totalPrice }}</label>
+        </view>
+      </view>
+
+      <view class="section">
+        <!-- 备注 -->
+      </view>
+    </view>
+
+    <view class="bottom">
+      支  付
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import { CART_GOODS } from '../../utils/constant'
+
+export default class GoodsOrder extends wepy.page {
+  config = {
+    'navigationBarTitleText': '订单配送至'
+  }
+
+  // props = {
+  //   list: {
+  //     type: Array,
+  //     twoWay: true
+  //   }
+  // }
+
+  data = {
+    items: [
+      {name: 'paynow', value: '立即支付', checked: 'true'},
+      {name: 'paylater', value: '稍后支付'}
+    ],
+    list: [],
+    totalPrice: 0
+  }
+
+  methods = {
+    toAddrEdit () {
+      wepy.navigateTo({ url: '/pages/goods/addr' })
+    },
+
+    radioChange (e) {
+      console.log('change', e)
+    }
+  }
+
+  onLoad () {
+    let listObj = wepy.getStorageSync(CART_GOODS)
+    this.list = listObj.list
+    this.totalPrice = listObj.totalPrice
+  }
+}
+</script>
+
+<style lang="scss">
+@import '../../common/styles/var.scss';
+
+.goods-order-container {
+  height: calc(100% - 44px);
+  .address-wrapper {
+    background: $defaultColor;
+    color: white;
+    text-align: center;
+    .address {
+      position: relative;
+      margin: 0 10px;
+      .can-jump {
+        border-color: white;
+      }
+    }
+    .others {
+      font-size: 30rpx;
+      padding: 10px;
+      .name {
+      }
+      .tel {
+        margin-left: 15px;
+      }
+    }
+  }
+  .content {
+    .section {
+      margin-top: 10px;
+      background: white;
+      .list {
+        .left {
+          flex: 1;
+          .title {
+            font-size: 30rpx;
+          }
+          .desc {
+            color: #777;
+          }
+        }
+        .num {
+
+        }
+        .price {
+          width: 160rpx;
+          text-align: right;
+        }
+      }
+      .total {
+        padding: 5px 10px 5px 10px;
+        display: flex;
+        align-items: center;
+        border-top: 1px solid #eee;
+        .total-price {
+          flex-grow: 1;
+          text-align: right;
+          color: $colorR;
+        }
+      }
+    }
+  }
+  .bottom {
+    position: fixed;
+    height: 44px;
+    background: $defaultColor;
+    color: white;
+    bottom:0;
+    left:0;
+    right:0;
+    line-height:44px;
+    text-align:center;
+    letter-spacing:10px;
+    &:active {
+      opacity: .7;
+    }
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 28rpx;
+    line-height: 1.5;
+    padding: 5px 10px;
+    &:not(:last-child) {
+      border-bottom: 1px solid #eee;
+    }
+    label {
+
+    }
+  }
+}
+</style>

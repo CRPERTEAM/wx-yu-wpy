@@ -1,0 +1,35 @@
+<template>
+  <view class="blank-tip">
+    <i class="iconfont {{icon}}"></i>
+    <view class="msg" v-if="msg">
+      {{msg}}
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class BlankTip extends wepy.component {
+  props = {
+    icon: String,
+    msg: String
+  }
+}
+</script>
+
+<style lang="scss">
+.blank-tip {
+  position: absolute;
+  left: 50%;
+  right: 0;
+  top: 40%;
+  transform: translate3d(-50%, -50%, 0);
+  text-align: center;
+  color: #aaa;
+  font-size: 28rpx;
+  .iconfont {
+    font-size: 200rpx;
+  }
+}
+</style>

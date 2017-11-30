@@ -1,0 +1,15 @@
+<template>
+  <view>Userinfo</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Userinfo extends wepy.page {
+
+}
+</script>
+
+<style lang="scss">
+
+</style>

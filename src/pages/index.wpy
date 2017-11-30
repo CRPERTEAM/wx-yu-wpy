@@ -1,0 +1,56 @@
+<template>
+  <view class="index-container">
+    <view class="tab-view" hidden="{{currentTab != 0}}">
+      <home />
+    </view>
+    <view class="tab-view" hidden="{{currentTab != 1}}">
+      <order />
+    </view>
+    <view class="tab-view" hidden="{{currentTab != 2}}">
+      <mine />
+    </view>
+    <tabbar :active.sync="currentTab" class="tab" />
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import Tab from '../components/tab'
+import Home from '../components/index/home'
+import Order from '../components/index/order'
+import Mine from '../components/index/mine'
+
+export default class Index extends wepy.page {
+  config = {
+    'navigationBarTitleText': ''
+  }
+
+  components = {
+    tabbar: Tab,
+    home: Home,
+    order: Order,
+    mine: Mine
+  }
+
+  data = {
+    currentTab: 0,
+    title: '123',
+    tabbarHeight: 51
+  }
+
+  async onLoad () {
+    console.log('systemInfo: ', await wepy.getSystemInfo())
+  }
+}
+</script>
+
+<style lang="scss">
+.index-container {
+  position: relative;
+  height: 100%;
+  .tab-view {
+    height: calc(100% - 51px);
+    width: 100%;
+  }
+}
+</style>

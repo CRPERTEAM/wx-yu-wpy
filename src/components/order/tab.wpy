@@ -1,0 +1,64 @@
+<template>
+  <view class="order-tab">
+    <view wx:for="{{items}}"
+          wx:for-index="index"
+          wx:key="index"
+          class="tab-item {{active === index ? 'active' : ''}}"
+          @tap="change({{index}})">
+      {{item.title}}
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class OrderTab extends wepy.component {
+  props = {
+    active: {
+      twoWay: true
+    }
+  }
+
+  data = {
+    items: [{
+      title: '支付订单'
+    }, {
+      title: '赊账订单'
+    }]
+  }
+
+  methods = {
+    change (idx, evt) {
+      this.active = idx
+    }
+  }
+
+  watch = {
+    active (newValue) {
+      console.log('active: ', newValue)
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+@import '../../common/styles/var.scss';
+
+.order-tab {
+  margin: 20rpx 20%;
+  display: flex;
+  text-align: center;
+  font-size: 28rpx;
+  min-height: 60rpx;
+  line-height: 60rpx;
+  .tab-item {
+    flex: 1;
+    background: #bbb;
+    color: white;
+    &.active {
+      background: $defaultColor;
+    }
+  }
+}
+</style>

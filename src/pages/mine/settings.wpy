@@ -1,0 +1,77 @@
+<template>
+  <view class="mine-settings">
+    <view class="section">
+      <view class="title">重新授权</view>
+      <view class="list">
+        <view class="item"
+              wx:for="{{items}}"
+              wx:for-key="index"
+              wx:for-index="index"
+              @tap="authroize({{item.type}})">
+          {{ item.title }}
+          <view class="can-jump"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class MineSettings extends wepy.page {
+  config = {
+    'navigationBarTitleText': '设置'
+  }
+
+  data = {
+    items: [
+      { title: '用户信息', type: 'scope.userInfo' },
+      { title: '收货地址', type: 'scope.address' }
+    ]
+  }
+
+  methods = {
+    async authroize (type) {
+      try {
+        let settings = await wepy.getSetting()
+        console.log('settings: ', settings)
+        if (!settings.authSetting[type]) {
+          console.log('authorize')
+          let auth = await wepy.authorize({
+            scope: type
+          })
+          console.log('authorize')
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.mine-settings {
+  .section {
+    margin-bottom: 10px;
+    font-size: 30rpx;
+    .title {
+      padding: 5px 10px;
+      font-size: 24rpx;
+      color: #777;
+    }
+    .list {
+      background: white;
+      .item {
+        position: relative;
+        padding: 10px 0 10px 10px;
+        margin-right: 10px;
+        &:not(:last-child) {
+          border-bottom: 1px solid #eee;
+        }
+      }
+    }
+  }
+}
+</style>

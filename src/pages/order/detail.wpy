@@ -1,0 +1,19 @@
+<template>
+  <view class="order-detail">
+    订单详情
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class OrderDetail extends wepy.page {
+  config = {
+    'navigationBarTitleText': '订单详情'
+  }
+}
+</script>
+
+<style lang="scss">
+
+</style>

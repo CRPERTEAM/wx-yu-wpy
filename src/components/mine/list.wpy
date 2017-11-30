@@ -1,0 +1,92 @@
+<template>
+  <view class="mine-list">
+    <view class="list-item"
+          wx:for="{{items}}"
+          @tap="toPath({{item.path}})">
+      <i class="iconfont {{item.icon}}" style="{{item.style}}"></i>
+      <span class="title">{{item.title}}</span>
+      <view class="can-jump" wx:if="{{item.path}}"></view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class MineList extends wepy.component {
+  data = {
+    items: [
+      {
+        title: '收货地址',
+        icon: 'icon-zuobiao',
+        path: 'address',
+        style: 'color:#2980d9;'
+      }, {
+        title: '13588568241',
+        icon: 'icon-dianhua',
+        style: 'color:#e74c3c;'
+      }, {
+        title: '设置',
+        icon: 'icon-shezhi',
+        path: 'settings',
+        style: 'color:#34495e;'
+      }
+    ],
+    paths: {
+      'address': '/pages/mine/address',
+      'settings': '/pages/mine/settings'
+    }
+  }
+
+  methods = {
+    async toPath (path) {
+      if (path) {
+        if (path === 'address') {
+          try {
+            await wepy.chooseAddress()
+          } catch (err) {
+            let type = 'scope.address'
+            let settings = await wepy.getSetting()
+            if (!settings.authSetting[type]) {
+              await wepy.showModal({
+                title: '提示',
+                content: `请在小程序设置界面（右上角 - 关于 - 右上角 - 设置）中开启授权`
+              })
+            } else {
+              console.log('err', err)
+            }
+          }
+        } else {
+          wepy.navigateTo({ url: this.paths[path] })
+        }
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.mine-list {
+  background: white;
+  width: 66%;
+  margin: 0 auto;
+  box-shadow: 0 0 20px #ccc;
+  border-radius: 5px;
+  padding: 0 10%;
+  margin-top: -20px;
+  .list-item {
+    position: relative;
+    height: 120rpx;
+    line-height: 120rpx;
+    &:not(:last-child) {
+      border-bottom: 1px solid #eee;
+    }
+    .iconfont {
+      margin-right: 30rpx;
+    }
+    .title {
+      font-size: 32rpx;
+    }
+  }
+}
+</style>

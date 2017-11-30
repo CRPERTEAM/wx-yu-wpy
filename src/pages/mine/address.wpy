@@ -1,0 +1,19 @@
+<template>
+  <view class="mine-address">
+    收货地址管理
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class MineAddress extends wepy.page {
+  config = {
+    'navigationBarTitleText': '收货地址管理'
+  }
+}
+</script>
+
+<style lang="scss">
+
+</style>

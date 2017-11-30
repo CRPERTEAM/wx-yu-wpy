@@ -1,0 +1,21 @@
+<template>
+  <view class="goods-header">
+
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class GoodsHeader extends wepy.component {
+
+}
+</script>
+
+<style lang="scss">
+.goods-header {
+  width: 100%;
+  background: red;
+  overflow: hidden;
+}
+</style>

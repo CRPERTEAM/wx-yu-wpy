@@ -1,0 +1,15 @@
+<template>
+  <view>Addr Edit</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class GoodsAddr extends wepy.page {
+
+}
+</script>
+
+<style lang="scss">
+
+</style>
