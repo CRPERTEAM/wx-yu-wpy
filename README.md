@@ -12,4 +12,28 @@
 - [x] 账单列表展示
 - [ ] 用户中心
 - [ ] 支付功能
-- [ ] 赊账系统
+- [ ]
+
+
+### 目录结构
+
+```bash
+├── .editorconfig // editor 的配置规则(所有支持这个的都生效)
+├── .eslintignore // eslint忽略的校验范围
+├── .eslintrc.js // esLint规则及配置
+├── .wepyignore // wepy忽略处理的范围
+├── README.md // 不用多少
+├── package-lock.json // lock 文件
+├── package.json  // 包清单
+├── src
+│   ├── api
+│   ├── app.wpy
+│   ├── common
+│   ├── components
+│   ├── index.template.html
+│   ├── index3
+│   ├── mixins
+│   ├── pages
+│   └── utils
+└── wepy.config.js
+```

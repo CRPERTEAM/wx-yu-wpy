@@ -1,1 +1,0 @@
-.blank-tip{position:absolute;left:50%;right:0;top:40%;transform:translate3d(-50%, -50%, 0);text-align:center;color:#aaa;font-size:28rpx}.blank-tip .iconfont{font-size:200rpx}

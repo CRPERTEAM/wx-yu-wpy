@@ -1,5 +1,0 @@
-@import "./../common/blankTip.wxss";
-@import "./../order/list.wxss";
-@import "./../order/list.wxss";
-@import "./../order/tab.wxss";
-.order-container{height:100%;display:flex;flex-direction:column}
