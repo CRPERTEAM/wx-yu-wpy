@@ -17,21 +17,24 @@
 ### 目录结构
 
 ```bash
-├── .editorconfig // editor 的配置规则(所有支持这个的都生效)
-├── .eslintignore // eslint忽略的校验范围
-├── .eslintrc.js // esLint规则及配置
-├── .wepyignore // wepy忽略处理的范围
-├── README.md // 不用多少
-├── package-lock.json // lock 文件
-├── package.json  // 包清单
+├── .editorconfig  // editor 配置
+├── .eslintignore // eslint 忽略处理范围
+├── .eslintrc.js  // eslint 规则
+├── .gitignore  // git 忽略文件
+├── .wepycache  // 脚手架缓存记录
+├── .wepyignore // 脚手架忽略处理反问
+├── LICENSE  // 协议
+├── README.md
+├── package-lock.json
+├── package.json
 ├── src
-│   ├── api
-│   ├── app.wpy
-│   ├── common
-│   ├── components --
-│   ├── index.template.html
-│   ├── mixins
-│   ├── pages
-│   └── utils
+│   ├── api // 接口
+│   ├── app.wpy  // 根组件
+│   ├── common // 通用样式
+│   ├── components // 组件
+│   ├── index.template.html  // 渲染的基础页面模板
+│   ├── mixins  // 公共抽离
+│   ├── pages  // 小程序页面
+│   └── utils  // 全局常见,异步请求的封装,全局方法等
 └── wepy.config.js
 ```
