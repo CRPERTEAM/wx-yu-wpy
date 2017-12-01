@@ -7,7 +7,7 @@
           已选择商品
         </view>
         <view class="cart-list">
-          <view class="list-item" wx:for="{{list}}">
+          <view class="list-item" wx:for="{{list}}" wx:key="index">
             <view class="left">
               <view class="title">
                 {{ item.title }}

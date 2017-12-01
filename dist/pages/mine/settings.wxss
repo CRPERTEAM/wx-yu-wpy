@@ -1,0 +1,1 @@
+.mine-settings .section{margin-bottom:10px;font-size:30rpx}.mine-settings .section .title{padding:5px 10px;font-size:24rpx;color:#777}.mine-settings .section .list{background:white}.mine-settings .section .list .item{position:relative;padding:10px 0 10px 10px;margin-right:10px}.mine-settings .section .list .item:not(:last-child){border-bottom:1px solid #eee}

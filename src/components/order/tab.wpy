@@ -29,6 +29,7 @@ export default class OrderTab extends wepy.component {
   }
 
   methods = {
+    //  tabs变更
     change (idx, evt) {
       this.active = idx
     }

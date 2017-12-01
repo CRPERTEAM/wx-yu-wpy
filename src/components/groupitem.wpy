@@ -1,7 +1,3 @@
-<style type="less">
-.groupitem {
-}
-</style>
 <template>
   <view class="groupitem">
     --<text class="id">{{gitem.childid}}.</text>
@@ -25,3 +21,7 @@
     }
   }
 </script>
+
+<style lang="scss">
+
+</style>

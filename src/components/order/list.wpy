@@ -1,6 +1,6 @@
 <template>
   <scroll-view scroll-y class="order-list">
-    <view wx:for="{{list}}" wx:for-key="item" wx:for-index="index" class="item">
+    <view wx:for="{{list}}" wx:for-key="item" wx:for-index="index" class="item" wx:key="index">
       <view class="header">
         <view class="left">{{item.title}}</view>
         <view class="right {{item.status !== 0 ? 'no-pay' : ''}}">{{payStatus[item.status]}}</view>
@@ -45,8 +45,8 @@ export default class OrderList extends wepy.component {
 @import '../../common/styles/var.scss';
 
 .order-list {
-  margin-top: 10px;
-  padding: 10px;
+  margin-top: 10rpx;
+  padding: 10rpx;
   box-sizing: border-box;
   flex-grow: 1;
   overflow-y: scroll;

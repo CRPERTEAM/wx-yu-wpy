@@ -7,6 +7,7 @@
               wx:for="{{items}}"
               wx:for-key="index"
               wx:for-index="index"
+              wx:key="index"
               @tap="authroize({{item.type}})">
           {{ item.title }}
           <view class="can-jump"></view>
@@ -17,61 +18,66 @@
 </template>
 
 <script>
-import wepy from 'wepy'
+  import wepy from "wepy";
 
-export default class MineSettings extends wepy.page {
-  config = {
-    'navigationBarTitleText': '设置'
-  }
+  export default class MineSettings extends wepy.page {
+    config = {
+      navigationBarTitleText: "设置"
+    };
 
-  data = {
-    items: [
-      { title: '用户信息', type: 'scope.userInfo' },
-      { title: '收货地址', type: 'scope.address' }
-    ]
-  }
+    data = {
+      items: [
+        { title: "用户信息", type: "scope.userInfo" },
+        { title: "收货地址", type: "scope.address" }
+      ]
+    };
 
-  methods = {
-    async authroize (type) {
-      try {
-        let settings = await wepy.getSetting()
-        console.log('settings: ', settings)
-        if (!settings.authSetting[type]) {
-          console.log('authorize')
-          let auth = await wepy.authorize({
-            scope: type
-          })
-          console.log('authorize')
+    methods = {
+      async authroize(type) {
+        try {
+          console.log(this);
+          let settings = await wepy.getSetting();
+          console.log("settings: ", settings);
+          if (!settings.authSetting[type]) {
+            console.log("authorize");
+            let auth = await wepy.authorize({
+              scope: type
+            });
+            console.log("authorize");
+          } else {
+            wx.openSetting({
+              success: res => {}
+            }); //请求打开授权
+          }
+        } catch (err) {
+          console.log(err);
         }
-      } catch (err) {
-        console.log(err)
       }
-    }
+    };
   }
-}
 </script>
 
 <style lang="scss">
-.mine-settings {
-  .section {
-    margin-bottom: 10px;
-    font-size: 30rpx;
-    .title {
-      padding: 5px 10px;
-      font-size: 24rpx;
-      color: #777;
-    }
-    .list {
-      background: white;
-      .item {
-        position: relative;
-        padding: 10px 0 10px 10px;
-        margin-right: 10px;
-        &:not(:last-child) {
-          border-bottom: 1px solid #eee;
+  .mine-settings {
+    .section {
+      margin-bottom: 10px;
+      font-size: 30rpx;
+      .title {
+        padding: 5px 10px;
+        font-size: 24rpx;
+        color: #777;
+      }
+      .list {
+        background: white;
+        .item {
+          position: relative;
+          padding: 10px 0 10px 10px;
+          margin-right: 10px;
+          &:not(:last-child) {
+            border-bottom: 1px solid #eee;
+          }
         }
       }
     }
   }
-}
 </style>

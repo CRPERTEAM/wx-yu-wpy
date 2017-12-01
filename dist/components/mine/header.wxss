@@ -1,0 +1,1 @@
+.mine-header{width:100%;height:360rpx;background:#69b273}.mine-header .userinfo{display:flex;flex-direction:column;align-items:center;padding-top:40rpx}.mine-header .userinfo .userinfo-avatar{width:128rpx;height:128rpx;margin:20rpx;border-radius:50%}.mine-header .userinfo .userinfo-nickname{color:white}

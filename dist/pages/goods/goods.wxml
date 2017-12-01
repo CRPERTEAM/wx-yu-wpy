@@ -1,0 +1,91 @@
+
+  <view class="goods-container">
+    
+  <view class="goods-list list">
+    <view class="left-wrapper">
+      <scroll-view scroll-y>
+        <view  wx:for="{{$goodsList$items}}" wx:for-key="{{item.typeId}}" wx:for-index="index" wx:key="typeId" class="type-item {{$goodsList$checked === index ? 'is-checked' : ''}}" bindtap="$goodsList$toType" data-wpytotype-a="{{item}}" data-wpytotype-b="{{index}}">
+          {{ item.title }}
+        </view>
+      </scroll-view>
+    </view>
+    <scroll-view scroll-y class="right-wrapper" bindscroll="$goodsList$onScroll" scroll-into-view="{{$goodsList$toView}}" id="right">
+      <view  wx:for="{{$goodsList$items}}" wx-for-item="item" class="lists" wx:key="typeId" id="type-{{item.typeId}}">
+        <view class="type-title">
+          {{item.title}}
+        </view>
+        <view class="content">
+          <view wx:for="{{item.child}}" wx:for-item="childItem" wx:for-index="itemIndex" wx:for-key="itemIndex" wx:key="id" class="item">
+            <view class="image">
+
+            </view>
+            <view class="item-right">
+              <view class="title">
+                {{ childItem.title }}
+              </view>
+              <view class="desc">
+                {{ childItem.desc }}
+              </view>
+              <view class="price">
+                ￥{{ childItem.price }}
+              </view>
+            </view>
+            <view class="counter">
+              <view class="btn-reduce" catchtap="$goodsList$catchReduce" wx:if="{{childItem.num && childItem.num > 0}}" data-wpycatchreduce-a="{{index}}" data-wpycatchreduce-b="{{itemIndex}}">
+                <i class="iconfont icon-jianhao"/>
+              </view>
+              <view wx:if="{{childItem.num}}" class="num">{{childItem.num}}</view>
+              <view class="btn-add" catchtap="$goodsList$catchAdd" data-wpycatchadd-a="{{index}}" data-wpycatchadd-b="{{itemIndex}}">
+                <i class="iconfont icon-jiahao1"/>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+    
+  <view class="goods-cart-container bottom">
+    
+  <view class="mask" bindtap="$goodsCart$mask$hide"  wx:if="{{$goodsCart$show}}"/>
+
+    <view class="cart-wrapper">
+      <view class="cart-content"  wx:if="{{$goodsCart$show}}">
+        <view class="cart-title">
+          已选择商品
+        </view>
+        <view class="cart-list">
+          <view class="list-item" wx:for="{{$goodsCart$list}}" wx:key="index">
+            <view class="left">
+              <view class="title">
+                {{ item.title }}
+              </view>
+              <view class="desc">
+                {{ item.desc }}
+              </view>
+            </view>
+            <view class="price">
+              ￥{{ item.price }}
+            </view>
+            <view class="counter">
+              数量：{{ item.num }}
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="bottom-cart">
+        <view class="left" bindtap="$goodsCart$showList">
+          <div class="icon {{$goodsCart$list.length === 0 ? 'empty' : ''}}">
+            <i class="iconfont icon-gouwuchefill"/>
+          </div>
+          <view class="price" wx:if="{{$goodsCart$totalPrice}}">￥{{ $goodsCart$totalPrice }}</view>
+        </view>
+        <button class="right {{$goodsCart$list.length === 0 ? 'empty' : ''}}" bindtap="$goodsCart$toPay" disabled="{{$goodsCart$list.length === 0}}">
+          去结算
+        </button>
+      </view>
+    </view>
+  </view>
+
+  </view>

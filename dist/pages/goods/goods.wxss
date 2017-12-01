@@ -1,0 +1,4 @@
+@import "./../../components/goods/cart.wxss";
+@import "./../../components/goods/list.wxss";
+@import "./../../components/goods/header.wxss";
+.goods-container{height:100%;overflow:hidden;display:flex;flex-direction:column}.goods-container .list{height:calc(100% - 44px)}.goods-container .bottom{position:absolute;min-height:44px}

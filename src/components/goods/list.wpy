@@ -5,6 +5,7 @@
         <view wx:for="{{items}}"
                    wx:for-key="{{item.typeId}}"
                    wx:for-index="index"
+                   wx:key="typeId"
                    class="type-item {{checked === index ? 'is-checked' : ''}}"
                    @tap="toType({{item}}, {{index}})">
           {{ item.title }}
@@ -16,12 +17,14 @@
                  bindscroll="onScroll"
                  scroll-into-view="{{toView}}"
                  id="right">
-      <view wx:for="{{items}}" wx-for-item="item" class="lists" id="type-{{item.typeId}}">
+      <view wx:for="{{items}}" wx-for-item="item" class="lists" wx:key="typeId" id="type-{{item.typeId}}">
         <view class="type-title">
           {{item.title}}
         </view>
         <view class="content">
-          <view wx:for="{{item.child}}" wx:for-item="childItem" wx:for-index="itemIndex" wx:for-key="itemIndex" class="item">
+          <view wx:for="{{item.child}}" wx:for-item="childItem" wx:for-index="itemIndex" wx:for-key="itemIndex"
+          wx:key="id"
+          class="item">
             <view class="image">
 
             </view>
@@ -245,7 +248,7 @@ export default class GoodsList extends wepy.component {
       this.toView = this.getType(item.typeId)
       this.setChecked(index)
     },
-    catchAdd (pidx, cidx) {
+    catchAdd (pidx, cidx) { //添加
       if (!this.items[pidx].child[cidx].num) {
         this.items[pidx].child[cidx].num = 0
       }

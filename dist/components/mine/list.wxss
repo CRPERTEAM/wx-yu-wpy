@@ -1,0 +1,1 @@
+.mine-list{background:white;width:66%;margin:0 auto;box-shadow:0 0 20px #ccc;border-radius:5px;padding:0 10%;margin-top:-20px}.mine-list .list-item{position:relative;height:120rpx;line-height:120rpx}.mine-list .list-item:not(:last-child){border-bottom:1px solid #eee}.mine-list .list-item .iconfont{margin-right:30rpx}.mine-list .list-item .title{font-size:32rpx}

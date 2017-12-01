@@ -17,11 +17,11 @@ module.exports = {
     },
     modules: ['node_modules']
   },
-  eslint: true,
+  eslint: false,
   compilers: {
-    less: {
+    /*less: {
       compress: true
-    },
+    },*/
     sass: {
       outputStyle: 'compressed'
     },
@@ -31,10 +31,10 @@ module.exports = {
         'env'
       ],
       plugins: [
-        'babel-plugin-transform-class-properties',
+        'transform-class-properties',
         'transform-decorators-legacy',
+        'transform-object-rest-spread',
         'transform-export-extensions',
-        'syntax-export-extensions'
       ]
     }
   },
@@ -52,7 +52,7 @@ if (prod) {
   module.exports.compilers['sass'] = {outputStyle: 'compressed'}
 
   // 压缩less
-  module.exports.compilers['less'] = {compress: true}
+  //module.exports.compilers['less'] = {compress: true}
 
   // 压缩js
   module.exports.plugins = {

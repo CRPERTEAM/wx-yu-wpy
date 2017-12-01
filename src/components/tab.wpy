@@ -1,10 +1,10 @@
 <template>
   <view class="tab">
     <view wx:for="{{items}}"
-      wx:for-index="id"
-      wx:key="id"
-      class="tab-item {{active === id ? 'active' : ''}}"
-      @tap="change({{id}})">
+          wx:for-index="id"
+          wx:key="id"
+          class="tab-item {{active === id ? 'active' : ''}}"
+          @tap="change({{id}})">
       <i class="iconfont {{ item.icon }}"></i>
       <text class="title">{{ item.title }}</text>
     </view>
@@ -12,75 +12,81 @@
 </template>
 
 <script>
-import wepy from 'wepy'
+  import wepy from "wepy";
 
-export default class Tab extends wepy.component {
-  props = {
-    active: {
-      twoWay: true
-    }
-  }
-  data = {
-    items: [
-      {
-        id: 0,
-        title: '首页',
-        icon: 'icon-shouye'
-      }, {
-        id: 1,
-        title: '订单',
-        icon: 'icon-dingdan'
-      }, {
-        id: 2,
-        title: '我的',
-        icon: 'icon-yonghu'
+  export default class Tab extends wepy.component {
+    props = {
+      active: {
+        twoWay: true
       }
-    ]
-  }
+    };
+    data = {
+      items: [
+        {
+          id: 0,
+          title: "首页",
+          icon: "icon-shouye"
+        },
+        {
+          id: 1,
+          title: "订单",
+          icon: "icon-dingdan"
+        },
+        {
+          id: 2,
+          title: "我的",
+          icon: "icon-yonghu"
+        }
+      ]
+    };
 
-  methods = {
-    change (idx, evt) {
-      this.active = idx
-      wepy.setNavigationBarTitle({ title: this.items[idx].title })
+    methods = {
+      change(idx, evt) {
+        this.active = idx;
+        wepy.setNavigationBarTitle({ title: this.items[idx].title });
+      }
+    };
+
+    onLoad() {
+      wepy.setNavigationBarTitle({ title: this.items[0].title });
     }
   }
-
-  onLoad () {
-    wepy.setNavigationBarTitle({ title: this.items[0].title })
-  }
-}
 </script>
 
 <style lang="scss">
-@import '../common/styles/var.scss';
+  @import "../common/styles/var.scss";
 
-.tab {
-  color: $tabFontColor;
-  position: fixed;
-  bottom: 0;
-  height: 50px;
-  width: 100%;
-  border-top: 1px solid #dad9d6;
-  background-color: #f7f7f7;
-  font-size: 24rpx;
-  white-space: nowrap;
-  .tab-item {
-    &.active {
-      color: $defaultColor;
+  .tab {
+    color: $tabFontColor;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    width: 100%;
+    box-shadow: 0 -1px 1px #dad9d6;
+    background-color: #f7f7f7;
+    font-size: 24rpx;
+    white-space: nowrap;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .tab-item {
+      &.active {
+        color: $defaultColor;
+      }
+      flex: 1;
+      display: block;
+      text-align: center;
     }
-    display: inline-block;
-    width: 33.3%;
-    text-align: center;
-    margin-top: 16rpx;
+    .iconfont {
+      width: 60rpx;
+      display: block;
+      margin: auto;
+    }
+    .title {
+      padding-top: 6rpx;
+      display: block;
+    }
   }
-  .iconfont {
-    width: 60rpx;
-    display: block;
-    margin: auto;
-  }
-  .title {
-    padding-top: 6rpx;
-    display: block;
-  }
-}
 </style>

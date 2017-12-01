@@ -26,10 +26,10 @@ export default class Index extends wepy.page {
   }
 
   components = {
-    tabbar: Tab,
-    home: Home,
-    order: Order,
-    mine: Mine
+    tabbar: Tab,  // 底部 tabs
+    home: Home, // 主页组件
+    order: Order,  // 订单
+    mine: Mine // 个人中心
   }
 
   data = {

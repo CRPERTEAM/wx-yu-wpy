@@ -1,79 +1,81 @@
 <template>
   <view class="mine-header">
     <view class="userinfo">
-      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <image class="userinfo-avatar"
+             src="{{userInfo.avatarUrl}}"
+             background-size="cover"></image>
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </view>
   </view>
 </template>
 
 <script>
-import wepy from 'wepy'
-import { USER_INFO } from '../../utils/constant'
+  import wepy from "wepy";
+  import { USER_INFO } from "../../utils/constant";
 
-export default class LMineHeader extends wepy.component {
-  data = {
-    userInfo: {}
-  }
+  export default class LMineHeader extends wepy.component {
+    data = {
+      userInfo: {}
+    };
 
-  props = {
-  }
+    props = {};
 
-  onLoad () {
-    this.getUserInfo()
-  }
+    onLoad() {
+      this.getUserInfo();
+    }
 
-  methods = {
-  }
+    methods = {};
 
-  async getUserInfo () {
-    // 先从storage里面去取（第一次一般取不到，storage异步，可能还未设置进去）没取到则调用接口
-    this.userInfo = wepy.getStorageSync(USER_INFO) || {}
-    console.log('this.userInfo:', this.userInfo, Object.keys(this.userInfo))
+    async getUserInfo() {
+      // 先从storage里面去取（第一次一般取不到，storage异步，可能还未设置进去）没取到则调用接口
+      this.userInfo = wepy.getStorageSync(USER_INFO) || {};
+      console.log("this.userInfo:", this.userInfo, Object.keys(this.userInfo));
 
-    if (Object.keys(this.userInfo).length === 0) {
-      try {
-        await wepy.getUserInfo().then(res => {
-          console.log('userinfo: ', res.userInfo)
-          this.userInfo = res.userInfo
-          this.$apply()
-        })
-      } catch (err) {
-        return new Error(err)
+      // 判断是否拿到对象的 key,若无则重新调用请求借口尝试获取
+      if (Object.keys(this.userInfo).length === 0) {
+        try {
+          await wepy.getUserInfo().then(res => {
+            console.log("userinfo: ", res.userInfo);
+            this.userInfo = res.userInfo;
+            this.$apply(); // 组件发起脏检查
+          });
+        } catch (err) {
+          return new Error(err);
+        }
       }
     }
-  }
 
-  watch = {
-    userInfo (newValue, oldValue) {
-      console.log(`num value: ${oldValue} -> ${newValue}`)
-    }
+    watch = {
+      userInfo(newValue, oldValue) {
+        console.log("最新的用户信息:", newValue);
+        console.log("获取之前的用户信息:", oldValue);
+      }
+    };
   }
-}
 </script>
 
 <style lang="scss">
-@import '../../common/styles/var.scss';
+  @import "../../common/styles/var.scss";
 
-.mine-header {
-  width: 100%;
-  height: 360rpx;
-  background: $defaultColor;
-  .userinfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 40rpx;
-    .userinfo-avatar {
-      width: 128rpx;
-      height: 128rpx;
-      margin: 20rpx;
-      border-radius: 50%;
-    }
+  .mine-header {
+    width: 100%;
+    height: 360rpx;
+    background: $defaultColor;
+    .userinfo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 40rpx;
+      .userinfo-avatar {
+        width: 128rpx;
+        height: 128rpx;
+        margin: 20rpx;
+        border-radius: 50%;
+      }
 
-    .userinfo-nickname {
-      color: white;
+      .userinfo-nickname {
+        color: white;
+      }
     }
   }
-}
 </style>

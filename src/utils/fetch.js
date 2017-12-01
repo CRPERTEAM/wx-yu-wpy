@@ -7,10 +7,10 @@ import wepy from 'wepy'
 // const SIGN = md5.hex_md5((TIMESTAMP + API_SECRET_KEY).toLowerCase())
 const baseUrl = 'http://jsonplaceholder.typicode.com/post'
 
-export default async (url = '', data = {}, method = 'get') => {
+export default async (url = '', data = {}, method = 'GET') => {
   console.log(`method: ${method}`)
   if (['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'].indexOf(method.toUpperCase()) === -1) {
-    return new Error('method is error.')
+    return new Error('method is error.(方法不能为空)')
   }
 
   wepy.showToast({
