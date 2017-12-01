@@ -34,20 +34,23 @@
         },
         {
           id: 2,
-          title: "我的",
+          title: "个人中心",
           icon: "icon-yonghu"
         }
       ]
     };
 
     methods = {
-      change(idx, evt) {
+      change(idx) {
+        // 当前活动 tab 的索引
         this.active = idx;
+        // 设置导航栏标题
         wepy.setNavigationBarTitle({ title: this.items[idx].title });
       }
     };
 
     onLoad() {
+      // 页面初始化的时候设置小程序的标题
       wepy.setNavigationBarTitle({ title: this.items[0].title });
     }
   }

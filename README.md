@@ -12,7 +12,6 @@
 - [x] 账单列表展示
 - [ ] 用户中心
 - [ ] 支付功能
-- [ ]
 
 
 ### 目录结构
@@ -29,9 +28,8 @@
 │   ├── api
 │   ├── app.wpy
 │   ├── common
-│   ├── components
+│   ├── components --
 │   ├── index.template.html
-│   ├── index3
 │   ├── mixins
 │   ├── pages
 │   └── utils

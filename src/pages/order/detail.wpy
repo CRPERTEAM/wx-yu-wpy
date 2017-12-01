@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import wepy from 'wepy'
+  import wepy from "wepy";
 
-export default class OrderDetail extends wepy.page {
-  config = {
-    'navigationBarTitleText': '订单详情'
+  export default class OrderDetail extends wepy.page {
+    config = {
+      navigationBarTitleText: "订单详情"
+    };
   }
-}
 </script>
 
 <style lang="scss">

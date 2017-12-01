@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import wepy from 'wepy'
+  import wepy from "wepy";
 
-export default class MineAddress extends wepy.page {
-  config = {
-    'navigationBarTitleText': '收货地址管理'
+  export default class MineAddress extends wepy.page {
+    config = {
+      navigationBarTitleText: "收货地址管理"
+    };
   }
-}
 </script>
 
 <style lang="scss">

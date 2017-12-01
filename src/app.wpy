@@ -6,123 +6,133 @@
 
 
 <script>
-import wepy from 'wepy'
-import 'wepy-async-function'
-import { USER_INFO } from './utils/constant'
-// import './common/styles/common.scss'
+  import wepy from "wepy";
+  import "wepy-async-function";
+  import { USER_INFO } from "./utils/constant";
+  // import "./common/styles/common.scss";
 
-export default class extends wepy.app {
-  config = {
-    pages: [
-      'pages/index',
-      'pages/mine/userinfo',
-      'pages/mine/settings',
-      'pages/mine/address',
-      'pages/goods/goods',
-      'pages/order/detail',
-      'pages/goods/order',
-      'pages/goods/addr'
-    ],
-    window: {
-      'navigationBarTextStyle': 'white',
-      'navigationBarBackgroundColor': '#69B273',
-      'enablePullDownRefresh': false
+  export default class extends wepy.app {
+    config = {
+      pages: [
+        // 入口,页面
+        "pages/index",
+        "pages/mine/userinfo",
+        "pages/mine/settings",
+        "pages/mine/address",
+        "pages/goods/goods",
+        "pages/order/detail",
+        "pages/goods/order",
+        "pages/goods/addr"
+      ],
+      window: {
+        navigationBarTextStyle: "white",
+        navigationBarBackgroundColor: "#69B273",
+        enablePullDownRefresh: false
+      },
+      networkTimeout: {
+        // 网络超时
+        request: 10000,
+        downloadFile: 10000
+      },
+      debug: true  // 是否开启 debug
+    };
+
+    // 全局信息
+    globalData = {
+      userInfo: null,
+      systemInfo: null
+    };
+
+    constructor() {
+      super();
+      this.use("requestfix");
+      this.use("promisify");
     }
-  }
 
-  globalData = {
-    userInfo: null,
-    systemInfo: null
-  }
-
-  constructor () {
-    super()
-    this.use('requestfix')
-    this.use('promisify')
-  }
-
-  async onLaunch () {
-    this.getUserInfo()
-    this.getSystemInfo()
-  }
-
-  sleep (s) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('promise resolved')
-      }, s * 1000)
-    })
-  }
-
-  async getUserInfo () {
-    try {
-      let res = await wepy.getUserInfo()
-      wepy.setStorageSync(USER_INFO, res.userInfo)
-      this.globalData.userInfo = res.userInfo
-    } catch (err) {
-      return new Error(err)
+    async onLaunch() {
+      this.getUserInfo();
+      this.getSystemInfo();
     }
-  }
 
-  async getSystemInfo () {
-    try {
-      this.globalData.systemInfo = await wepy.getSystemInfo()
-    } catch (err) {
-      return new Error(err)
+    sleep(s) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("promise resolved");
+        }, s * 1000);
+      });
     }
-  }
+    // 获取用户信息
+    async getUserInfo() {
+      try {
+        let res = await wepy.getUserInfo();
+        wepy.setStorageSync(USER_INFO, res.userInfo);
+        this.globalData.userInfo = res.userInfo;
+      } catch (err) {
+        return new Error(err);
+      }
+    }
 
-  // getUserInfo(cb) {
-  //   const that = this
-  //   if (this.globalData.userInfo) {
-  //     return this.globalData.userInfo
-  //   }
-  //   wepy.getUserInfo({
-  //     success (res) {
-  //       that.globalData.userInfo = res.userInfo
-  //       cb && cb(res.userInfo)
-  //     }
-  //   })
-  // }
-}
+    // 获取系统信息
+    async getSystemInfo() {
+      try {
+        this.globalData.systemInfo = await wepy.getSystemInfo();
+      } catch (err) {
+        return new Error(err);
+      }
+    }
+
+    // getUserInfo(cb) {
+    //   const that = this
+    //   if (this.globalData.userInfo) {
+    //     return this.globalData.userInfo
+    //   }
+    //   wepy.getUserInfo({
+    //     success (res) {
+    //       that.globalData.userInfo = res.userInfo
+    //       cb && cb(res.userInfo)
+    //     }
+    //   })
+    // }
+  }
 </script>
 
 <style lang="scss">
-@import "./common/styles/iconfont.scss";
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-page, .body {
-  height: 100%;
-  background-color: #f0eff5;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 32rpx;
-  color: #333;
-  -webkit-overflow-scrolling: touch;
-}
+  @import "./common/styles/iconfont.scss";
+  .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  page,
+  .body {
+    height: 100%;
+    background-color: #f0eff5;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 32rpx;
+    color: #333;
+    -webkit-overflow-scrolling: touch;
+  }
 
-.iconfont {
-  font-size: 40rpx;
-}
+  .iconfont {
+    font-size: 40rpx;
+  }
 
-.can-jump {
-  position: absolute;
-  top: 45%; // 补偿
-  right: 0;
-  width: 10px;
-  height: 10px;
-  background: transparent;
-  border-color:#b7b7b7;
-  border-width: 0 2px 2px 0px;
-  border-style: solid;
-  transform: rotateZ(-45deg) translate3d(0, -50%, 0);
-  // color: red;
-}
+  .can-jump {
+    position: absolute;
+    top: 45%; // 补偿
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    border-color: #b7b7b7;
+    border-width: 0 2px 2px 0px;
+    border-style: solid;
+    transform: rotateZ(-45deg) translate3d(0, -50%, 0);
+    // color: red;
+  }
 </style>

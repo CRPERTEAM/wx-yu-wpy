@@ -1,4 +1,20 @@
-<style lang="less">
+<template>
+  <view class="panel">
+    <slot name="title">
+      Title
+    </slot>
+    <slot>
+    </slot>
+  </view>
+</template>
+<script>
+  import wepy from "wepy";
+
+  export default class Panel extends wepy.component {}
+</script>
+
+
+<style lang="scss">
   .panel {
     width: 100%;
     margin-top: 20rpx;
@@ -26,18 +42,3 @@
     }
   }
 </style>
-<template>
-  <view class="panel">
-    <slot name="title">
-      Title
-    </slot>
-    <slot>
-    </slot>
-  </view>
-</template>
-<script>
-  import wepy from 'wepy'
-
-  export default class Panel extends wepy.component {
-  }
-</script>

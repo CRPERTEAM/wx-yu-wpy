@@ -1,10 +1,12 @@
 <template>
   <view class="counter">
     <view class="btn-reduce"
-          @tap.stop="catchReduce" wx:if="{{item.num && item.num > 0}}">
+          @tap.stop="catchReduce"
+          wx:if="{{item.num && item.num > 0}}">
       <i class="iconfont icon-jianhao"></i>
     </view>
-    <view wx:if="{{item.num}}" class="num">{{item.num}}</view>
+    <view wx:if="{{item.num}}"
+          class="num">{{item.num}}</view>
     <view class="btn-add"
           @tap.stop="catchAdd">
       <i class="iconfont icon-jiahao1"></i>
@@ -13,26 +15,26 @@
 </template>
 
 <script>
-import wepy from 'wepy'
+  import wepy from "wepy";
 
-export default class Counter extends wepy.component {
-  props = {
-    num: {
-      type: Number,
-      default: 0
-    },
-    item: Object
-  }
+  export default class Counter extends wepy.component {
+    props = {
+      num: {
+        type: Number,
+        default: 0
+      },
+      item: Object
+    };
 
-  methods = {
-    catchReduce () {
-      this.$emit('reduce')
-    },
-    catchAdd () {
-      this.$emit('add', this.item)
-    }
+    methods = {
+      catchReduce() {
+        this.$emit("reduce");
+      },
+      catchAdd() {
+        this.$emit("add", this.item);
+      }
+    };
   }
-}
 </script>
 
 <style lang="scss">

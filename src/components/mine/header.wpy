@@ -24,7 +24,9 @@
       this.getUserInfo();
     }
 
-    methods = {};
+    methods = {
+
+    };
 
     async getUserInfo() {
       // 先从storage里面去取（第一次一般取不到，storage异步，可能还未设置进去）没取到则调用接口

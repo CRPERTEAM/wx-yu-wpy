@@ -1,56 +1,58 @@
 <template>
   <view class="index-container">
-    <view class="tab-view" hidden="{{currentTab != 0}}">
+    <view class="tab-view"
+          wx:if="{{currentTab === 0}}">
       <home />
     </view>
-    <view class="tab-view" hidden="{{currentTab != 1}}">
+    <view class="tab-view"
+          wx:if="{{currentTab === 1}}">
       <order />
     </view>
-    <view class="tab-view" hidden="{{currentTab != 2}}">
+    <view class="tab-view"
+          wx:if="{{currentTab === 2}}">
       <mine />
     </view>
-    <tabbar :active.sync="currentTab" class="tab" />
+    <tabbar :active.sync="currentTab"
+            class="tab" />
   </view>
 </template>
 
 <script>
-import wepy from 'wepy'
-import Tab from '../components/tab'
-import Home from '../components/index/home'
-import Order from '../components/index/order'
-import Mine from '../components/index/mine'
+  import wepy from "wepy";
+  import Tab from "../components/tab";
+  import Home from "./home/index";
+  import Order from "./order/index";
+  import Mine from "./mine/index";
 
-export default class Index extends wepy.page {
-  config = {
-    'navigationBarTitleText': ''
-  }
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: ""
+    };
 
-  components = {
-    tabbar: Tab,  // 底部 tabs
-    home: Home, // 主页组件
-    order: Order,  // 订单
-    mine: Mine // 个人中心
-  }
+    components = {
+      tabbar: Tab, // 底部 tabs
+      home: Home, // 主页组件
+      order: Order, // 订单
+      mine: Mine // 个人中心
+    };
 
-  data = {
-    currentTab: 0,
-    title: '123',
-    tabbarHeight: 51
-  }
+    data = {
+      currentTab: 0
+    };
 
-  async onLoad () {
-    console.log('systemInfo: ', await wepy.getSystemInfo())
+    async onLoad() {
+      console.log("系统信息: ", await wepy.getSystemInfo());
+    }
   }
-}
 </script>
 
 <style lang="scss">
-.index-container {
-  position: relative;
-  height: 100%;
-  .tab-view {
-    height: calc(100% - 51px);
-    width: 100%;
+  .index-container {
+    position: relative;
+    height: 100%;
+    .tab-view {
+      height: calc(100% - 50rpx);
+      width: 100%;
+    }
   }
-}
 </style>

@@ -9,7 +9,11 @@ const baseUrl = 'http://jsonplaceholder.typicode.com/post'
 
 export default async (url = '', data = {}, method = 'GET') => {
   console.log(`method: ${method}`)
-  if (['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'].indexOf(method.toUpperCase()) === -1) {
+  if (
+    ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'].indexOf(
+      method.toUpperCase()
+    ) === -1
+  ) {
     return new Error('method is error.(方法不能为空)')
   }
 

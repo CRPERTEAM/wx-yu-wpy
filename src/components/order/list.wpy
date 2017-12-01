@@ -1,6 +1,11 @@
 <template>
-  <scroll-view scroll-y class="order-list">
-    <view wx:for="{{list}}" wx:for-key="item" wx:for-index="index" class="item" wx:key="index">
+  <scroll-view scroll-y
+               class="order-list">
+    <view wx:for="{{list}}"
+          wx:for-key="item"
+          wx:for-index="index"
+          class="item"
+          wx:key="index">
       <view class="header">
         <view class="left">{{item.title}}</view>
         <view class="right {{item.status !== 0 ? 'no-pay' : ''}}">{{payStatus[item.status]}}</view>
@@ -10,108 +15,109 @@
         <view class="price">￥{{item.price}}</view>
       </view>
       <view class="time">{{item.createTime}}</view>
-      <view class="btn" @tap="toDetail({{item.id}})">查看详情</view>
+      <view class="btn"
+            @tap="toDetail({{item.id}})">查看详情</view>
     </view>
   </scroll-view>
 </template>
 
 <script>
-import wepy from 'wepy'
-export default class OrderList extends wepy.component {
-  props = {
-    list: Array
-  }
+  import wepy from "wepy";
+  export default class OrderList extends wepy.component {
+    props = {
+      list: Array
+    };
 
-  data = {
-    payStatus: {
-      0: '已付款',
-      1: '未付款'
+    data = {
+      payStatus: {
+        0: "已付款",
+        1: "未付款"
+      }
+    };
+
+    onLoad() {
+      console.log("list: ", this.list, this.list.length);
     }
-  }
 
-  onLoad () {
-    console.log('list: ', this.list, this.list.length)
+    methods = {
+      toDetail(id) { // 跳转到订单详情页
+        wepy.navigateTo({ url: `/pages/order/detail?id=${id}` });
+      }
+    };
   }
-
-  methods = {
-    toDetail (id) {
-      wepy.navigateTo({url: `/pages/order/detail?id=${id}`})
-    }
-  }
-}
 </script>
 
 <style lang="scss">
-@import '../../common/styles/var.scss';
+  @import "../../common/styles/var.scss";
 
-.order-list {
-  margin-top: 10rpx;
-  padding: 10rpx;
-  box-sizing: border-box;
-  flex-grow: 1;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-  .item {
-    margin: 0 10px 10px 10px;
-    border: 1px solid #d7d7d7;
-    border-radius: 8px;
-    font-size: 26rpx;
-    position: relative;
-    .header {
-      padding: 0 10px;
-      height: 60rpx;
-      line-height: 60rpx;
-      display: flex;
-      background-color: $defaultColor;
-      color: white;
-      .left {
-        flex: 1;
+  .order-list {
+    margin-top: 10rpx;
+    padding: 10rpx;
+    box-sizing: border-box;
+    flex-grow: 1;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    .item {
+      margin: 0 10px 10px 10px;
+      border: 1px solid #d7d7d7;
+      border-radius: 8px;
+      font-size: 26rpx;
+      position: relative;
+      .header {
+        padding: 0 10px;
+        height: 60rpx;
+        line-height: 60rpx;
+        display: flex;
+        background-color: $defaultColor;
+        color: white;
+        .left {
+          flex: 1;
+        }
+        .right {
+          font-size: 28rpx;
+          font-weight: 600;
+          text-align: right;
+        }
+        .no-pay {
+          color: $colorR;
+        }
       }
-      .right {
-        font-size: 28rpx;
-        font-weight: 600;
-        text-align: right;
-      }
-      .no-pay {
-        color: $colorR;
-      }
-    }
-    .content {
-      padding: 0 10px;
-      height: 100rpx;
-      display: flex;
-      align-items: center;
-      .items {
-        flex: 1;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+      .content {
+        padding: 0 10px;
+        height: 100rpx;
+        display: flex;
+        align-items: center;
+        .items {
+          flex: 1;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+
+        .price {
+          text-align: right;
+          color: $defaultColor;
+        }
       }
 
-      .price {
-        text-align: right;
-        color: $defaultColor;
+      .time {
+        padding: 0 10px;
+        height: 80rpx;
+        line-height: 80rpx;
       }
-    }
 
-    .time {
-      padding: 0 10px;
-      height: 80rpx;
-      line-height: 80rpx;
-    }
-
-    .btn {
-      position: absolute;
-      right: 20rpx;
-      bottom: 20rpx;
-      width: 140rpx;
-      padding: 5px 8px;
-      text-align: center;
-      background-color: $defaultColor;
-      color: white;
-      border-radius: 4px;
-      font-size: 24rpx;
+      .btn {
+        position: absolute;
+        right: 20rpx;
+        bottom: 20rpx;
+        width: 140rpx;
+        padding: 5px 8px;
+        text-align: center;
+        background-color: $defaultColor;
+        color: white;
+        border-radius: 4px;
+        font-size: 24rpx;
+      }
     }
   }
-}
 </style>

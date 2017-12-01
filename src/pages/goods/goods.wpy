@@ -1,80 +1,82 @@
 <template>
   <view class="goods-container">
-    <goods-list class="list" @addToCard.user="addToCard"></goods-list>
-    <goods-cart class="bottom" :list.sync="cartList"></goods-cart>
+    <goods-list class="list"
+                @addToCard.user="addToCard"></goods-list>
+    <goods-cart class="bottom"
+                :list.sync="cartList"></goods-cart>
   </view>
 </template>
 
 <script>
-import wepy from 'wepy'
-import GoodsHeader from '../../components/goods/header'
-import GoodsList from '../../components/goods/list'
-import GoodsCart from '../../components/goods/cart'
+  import wepy from "wepy";
+  import GoodsHeader from "../../components/goods/header";
+  import GoodsList from "../../components/goods/list";
+  import GoodsCart from "../../components/goods/cart";
 
-export default class Goods extends wepy.page {
-  config = {
-    'navigationBarTitleText': '商品列表'
-  }
+  export default class Goods extends wepy.page {
+    config = {
+      navigationBarTitleText: "商品列表"
+    };
 
-  components = {
-    'goods-header': GoodsHeader,
-    'goods-list': GoodsList,
-    'goods-cart': GoodsCart
-  }
+    components = {
+      "goods-header": GoodsHeader,
+      "goods-list": GoodsList,
+      "goods-cart": GoodsCart
+    };
 
-  data = {
-    cartList: []
-  }
+    data = {
+      cartList: []
+    };
 
-  methods = {
-    addToCard (item, event) {
-      console.log('methods addToCard', item)
+    methods = {
+      addToCard(item, event) {
+        console.log("methods addToCard", item);
+      }
+    };
+
+    onReady() {
+      this.$invoke("goods-list", "getScrollTops");
     }
-  }
 
-  onReady () {
-    this.$invoke('goods-list', 'getScrollTops')
-  }
-
-  events = {
-    'addToCart': (goods) => {
-      console.log('addToCard', goods)
-      let added = false
-      for (let i = 0; i < this.cartList.length; ++i) {
-        let item = this.cartList[i]
-        if (goods.id === item.id) {
-          added = true
-          item.num = goods.num
-          // 说明该商品已经没有数量，则可以从购物车内删除
-          if (item.num <= 0) {
-            this.cartList.splice(i, 1)
+    events = {
+      addToCart: goods => {
+        console.log("addToCard", goods);
+        let added = false;
+        for (let i = 0; i < this.cartList.length; ++i) {
+          let item = this.cartList[i];
+          if (goods.id === item.id) {
+            added = true;
+            item.num = goods.num;
+            // 说明该商品已经没有数量，则可以从购物车内删除
+            if (item.num <= 0) {
+              this.cartList.splice(i, 1);
+            }
           }
         }
-      }
 
-      if (!added) {
-        this.cartList.push(goods)
-      }
+        if (!added) {
+          this.cartList.push(goods);
+        }
 
-      this.$broadcast('cartChange', this.cartList)
-      console.log('cartList: ', this.cartList)
-    }
+        this.$broadcast("cartChange", this.cartList);
+        console.log("cartList: ", this.cartList);
+      }
+    };
   }
-}
 </script>
 
 <style lang="scss">
-.goods-container {
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  .list {
-    height: calc(100% - 44px);
+  .goods-container {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    .list {
+      height: calc(100% - 44px);
+    }
+    .bottom {
+      position: absolute;
+      min-height: 44px;
+    }
   }
-  .bottom {
-    position: absolute;
-    min-height: 44px;
-  }
-}
 </style>

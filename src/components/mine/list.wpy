@@ -2,13 +2,15 @@
   <view class="mine-list">
     <view class="list-item"
           wx:for="{{items}}"
+          wx:for-item="item"
+          wx:for-index="index"
           wx:key="index"
           @tap="toPath({{item.path}})">
       <i class="iconfont {{item.icon}}"
          style="{{item.style}}"></i>
       <span class="title">{{item.title}}</span>
       <view class="can-jump"
-            wx:if="{{item.path}}"></view>
+            wx:if="{{item && item.path !== 'phone'}}"></view>
     </view>
   </view>
 </template>
@@ -28,6 +30,7 @@
         {
           title: "13588568241",
           icon: "icon-dianhua",
+          path: "phone",
           style: "color:#e74c3c;"
         },
         {
@@ -42,26 +45,60 @@
         settings: "/pages/mine/settings"
       }
     };
-
-    methods = {
-      async toPath(path) { // 路径跳转判断
-        if (path && path === "address") {
+    onLoad() {
+      this.getPrivilege(); //获取用户当前已有的权限
+    }
+    async getPrivilege() {
+      let userPrivilege = await wepy.getSetting();
+      console.log("已获得的权限:",userPrivilege);
+      if (userPrivilege && userPrivilege.errMsg === "getSetting:ok") {
+        let scopes =
+          userPrivilege.authSetting["scope.address"] &&
+          userPrivilege.authSetting["scope.userInfo"];
+        if (!scopes) {
           try {
-            await wepy.chooseAddress();
+            await wepy.showModal({
+              title: "提示",
+              content: `请开启对应的授权来选择您的地址和获取手机号码`
+            });
+
+            // 打开授权设置
+            await wx.openSetting();
           } catch (err) {
-            let type = "scope.address";
-            let settings = await wepy.getSetting();
-            if (!settings.authSetting[type]) {
-              await wepy.showModal({
-                title: "提示",
-                content: `请在小程序设置界面（右上角 - 关于 - 右上角 - 设置）中开启授权`
+            throw new Error(err);
+          }
+        }
+      }
+    }
+    methods = {
+      async toPath(path) {
+        // 路径跳转判断
+        console.log(path);
+        if (path) {
+          if (path === "address") {
+            try {
+              //调起用户编辑收货地址原生界面，并在编辑完成后返回用户选择的地址。需要用户授权 scope.address
+              await wepy.chooseAddress({
+                success: res => {
+                  console.log(res.userName);
+                  console.log(res.postalCode);
+                  console.log(res.provinceName);
+                  console.log(res.cityName);
+                  console.log(res.countyName);
+                  console.log(res.detailInfo);
+                  console.log(res.nationalCode);
+                  console.log(res.telNumber);
+                },
+                fail: res => {}
               });
-            } else {
-              console.log("err", err);
-            }
+            } catch (err) {}
+          } else if (path === "phone") {
+            return false;
+          } else {
+            wepy.navigateTo({ url: this.paths[path] });
           }
         } else {
-          wepy.navigateTo({ url: this.paths[path] });
+          return false;
         }
       }
     };
