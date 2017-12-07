@@ -1,5 +1,5 @@
 # wx-yu-wpy
-之前的微信小程序（给yu做的）替换一下构建框架，采用wepy构建
+微信小程序（yu-mall)，采用wepy构建
 
 ### 实现的功能主要如下:
 - [ ] 商品列表展示
@@ -12,6 +12,17 @@
 - [x] 账单列表展示
 - [ ] 用户中心
 - [ ] 支付功能
+
+
+
+
+### 使用姿势
+
+1. 全局脚手架: `npm i wepy-cli -g`
+2. 克隆项目: `git clone https://github.com/CRPERTEAM/wx-yu-wpy.git`
+3. 进入项目: `cd wx-yu-wpy`
+4. 安装依赖: `yarn install` or `npm install`
+5. 跑起来  : `wepy build --watch`
 
 
 ### 目录结构
